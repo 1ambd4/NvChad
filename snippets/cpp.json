@@ -1,0 +1,27 @@
+{
+    "LeetCode Starter Template": {
+    "prefix": "lc",
+    "body": [
+        "#include <iostream>",
+        "#include <vector>",
+        "",
+        "using std::vector;",
+        "",
+        "int main () {",
+        "#ifdef LOCAL",
+            "\tfreopen(\"$1.in\", \"r\", stdin);",
+        "#endif",
+            "\tint n = 0;",
+            "\twhile (std::cin >> n) {",
+                "\t\tvector<int> nums(n, 0);",
+                "\t\tfor (int i = 0; i < n; ++i) {",
+                    "\t\t\tstd::cin >> nums[i];",
+                "\t\t}",
+            "\t}",
+            "\t$2",
+            "\treturn 0;",
+        "}"
+        ],
+        "description": "Standard starter template for a tiny C++ program"
+    }
+}

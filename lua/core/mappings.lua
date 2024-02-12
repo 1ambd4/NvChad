@@ -23,6 +23,10 @@ M.general = {
     ["<C-j>"] = { "<C-w>j", "Window down" },
     ["<C-k>"] = { "<C-w>k", "Window up" },
 
+    -- pseudo maximizing window
+    -- https://www.reddit.com/r/vim/comments/16sv7uu/maximizing_windows/
+    ["<leader>z"] = { "<cmd> tab split<CR>", "maximizing window" },
+
     -- save
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
 
@@ -180,9 +184,10 @@ M.lspconfig = {
     },
 
     ["<leader>ca"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
+      -- function()
+      --   vim.lsp.buf.code_action()
+      -- end,
+      "<cmd> Lspsaga code_action <CR>",
       "LSP code action",
     },
 
@@ -193,7 +198,7 @@ M.lspconfig = {
       "LSP references",
     },
 
-    ["<leader>lf"] = {
+    ["<leader>f"] = {
       function()
         vim.diagnostic.open_float { border = "rounded" }
       end,
@@ -201,16 +206,18 @@ M.lspconfig = {
     },
 
     ["[d"] = {
-      function()
-        vim.diagnostic.goto_prev { float = { border = "rounded" } }
-      end,
+      -- function()
+      --   vim.diagnostic.goto_prev { float = { border = "rounded" } }
+      -- end,
+      "<cmd> Lspsaga diagnostic_jump_prev <CR>",
       "Goto prev",
     },
 
     ["]d"] = {
-      function()
-        vim.diagnostic.goto_next { float = { border = "rounded" } }
-      end,
+      -- function()
+      --   vim.diagnostic.goto_next { float = { border = "rounded" } }
+      -- end,
+      "<cmd> Lspsaga diagnostic_jump_next <CR>",
       "Goto next",
     },
 
@@ -245,10 +252,71 @@ M.lspconfig = {
 
   v = {
     ["<leader>ca"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
+      -- function()
+      --   vim.lsp.buf.code_action()
+      -- end,
+      "<cmd> Lspsaga code_action <CR>",
       "LSP code action",
+    },
+  },
+}
+
+M.symbols = {
+  plugin = true,
+
+  n = {
+    ["<leader>ts"] = { "<cmd> SymbolsOutline <CR>", "Toggle Symbols Outline" },
+  },
+}
+
+M.rusttool = {
+  n = {
+    ["<leader>rd"] = { "<cmd> RustDebuggables <CR>", "Debuggable" },
+    ["<leader>rr"] = { "<cmd> RustRunnables <CR>", "Runnable" },
+    ["<leader>rw"] = { "<cmd> RustExpandMacro <CR>", "Expand Macro" },
+  },
+}
+
+M.dap = {
+  -- plugin = true,
+  n = {
+    ["<leader>dd"] = { "<cmd> DapToggleBreakpoint <CR>", "BreakPoint" },
+    ["<F5>"] = { "<cmd> DapToggleBreakpoint <CR>", "BreakPoint" },
+    ["<leader>dt"] = {
+      function()
+        require("dapui").toggle()
+      end,
+      "toggle dapui",
+    },
+    ["<F7>"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "Step Into",
+    },
+    ["<F6>"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "Step Over",
+    },
+    ["<F8>"] = {
+      function()
+        require("dap").step_out()
+      end,
+      "Step Out",
+    },
+    ["<leader>dh"] = {
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+      "Dap UI Preview",
+    },
+    ["<leader>df"] = {
+      function()
+        local widgets = require "dap.ui.widgets"
+        widgets.centered_float(widgets.frames)
+      end,
     },
   },
 }
@@ -259,6 +327,7 @@ M.nvimtree = {
   n = {
     -- toggle
     ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+    ["<leader>tt"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
 
     -- focus
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },

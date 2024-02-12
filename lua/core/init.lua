@@ -2,6 +2,11 @@ local opt = vim.opt
 local g = vim.g
 local config = require("core.utils").load_config()
 
+-------------------------------------- neovide -----------------------------------------
+if vim.g.neovide then
+    vim.o.guifont = "Source Code Pro:h16"
+end
+
 -------------------------------------- globals -----------------------------------------
 g.nvchad_theme = config.ui.theme
 g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
@@ -17,10 +22,10 @@ opt.cursorline = true
 
 -- Indenting
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
 opt.smartindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.softtabstop = 4
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = true
@@ -62,6 +67,14 @@ vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or "
 
 -------------------------------------- autocmds ------------------------------------------
 local autocmd = vim.api.nvim_create_autocmd
+
+-- restore cursor positon
+autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function ()
+    vim.api.nvim_exec('silent! normal! g`"zv', false)
+  end,
+})
 
 -- dont list quickfix buffers
 autocmd("FileType", {
